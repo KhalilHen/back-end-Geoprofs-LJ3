@@ -18,6 +18,14 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->enum('role', ['employee', 'manager', 'section-Manager', 'CEO']);
+            $table->integer('leave_hours')->default(0);
+            $table->enum('onLeave', ['present', 'on leave', 'sick', 'irresponsibly absent']);
+            $table->double('average_hours');
+            $table->json('working_days');
+            $table->date('date_of_birth');
+            $table->date('start_working_date');
+            $table->date('end_working_date')->nullable();
             $table->timestamps();
         });
     }
