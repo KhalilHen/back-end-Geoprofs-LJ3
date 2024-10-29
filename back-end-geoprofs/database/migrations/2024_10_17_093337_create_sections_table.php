@@ -13,8 +13,9 @@ class CreateSectionsTable extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
-            $table->foreignId('manager_role_id')->nullable()->constrained('employees')->onDelete('cascade');
+            $table->foreignId('manager_role_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
+
         });
     }
 

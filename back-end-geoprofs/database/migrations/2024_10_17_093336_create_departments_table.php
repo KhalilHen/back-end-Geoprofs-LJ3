@@ -10,10 +10,10 @@ class CreateDepartmentsTable extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
             $table->string('title');
             $table->string('description')->nullable();
             $table->json('employee_ids');
-            $table->foreignId('manager_role_id')->constrained('employees')->onDelete('cascade');
             $table->timestamps();
         });
     }
