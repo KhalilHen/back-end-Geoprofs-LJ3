@@ -28,12 +28,16 @@ class log_in_controller extends Controller
         if(is_null($user) || Hash::check($request->password, $user->password)){
 
             //error message for return needs to be added
-
-            return(Null);//if login was not successful return stops code from continuing
+            return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        //authentication and session needs to be added
+        
+        $token = $user->createToken('auth_token')->plainTextToken;
+        //token with users id needs to be stored
 
-        return(Null);//if login was successful
+        return response()->json([
+            'access_token' => $token,
+            'user_id' => $user->id,
+        ]);
     }
 }
