@@ -28,8 +28,7 @@ class log_in_controller extends Controller
 
         //log in attempts limiter need to be added
 
-        if(is_null($user) || Hash::check($request->password, $user->password)){
-
+        if(is_null($user) || !Hash::check($request->password, $user->password)){
             return response()->json(['message' => 'Invalid credentials'], 401);//also stops code from continuing 
         }
 
