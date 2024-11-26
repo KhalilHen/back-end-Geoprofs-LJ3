@@ -12,7 +12,6 @@ class CreateLeaveRequestsCategoryTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('description')->nullable();
-            $table->boolean('is_paid');
             $table->timestamps();
         });
     }

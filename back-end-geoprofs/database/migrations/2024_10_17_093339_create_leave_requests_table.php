@@ -18,6 +18,9 @@ class CreateLeaveRequestsTable extends Migration
             $table->integer('leave_hours');
             $table->date('start_date');
             $table->date('end_date');
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
+            $table->boolean('is_paid');
             $table->timestamps();
         });
     }

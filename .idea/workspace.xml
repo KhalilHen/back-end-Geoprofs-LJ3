@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="225b99a3-f53f-40f6-b0e4-4759cdcb1e22" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093336_create_departments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093336_create_departments_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093337_create_sections_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093337_create_sections_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093338_create_leave_requests_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093338_create_leave_requests_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2014_10_12_100000_create_password_reset_tokens_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2019_08_19_000000_create_failed_jobs_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2019_12_14_000001_create_personal_access_tokens_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093338_create_leave_requests_category_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093338_create_leave_requests_category_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093339_create_leave_requests_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093339_create_leave_requests_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,5 +204,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093338_create_leave_requests_category_table.php</url>
+          <line>14</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

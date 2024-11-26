@@ -15,9 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
             $table->enum('role', ['employee', 'manager', 'section-Manager', 'CEO']);
             $table->integer('leave_hours')->default(0);
             $table->enum('onLeave', ['present', 'on leave', 'sick', 'irresponsibly absent']);
