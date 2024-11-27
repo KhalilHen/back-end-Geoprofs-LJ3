@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\log_in_controller;
+use App\Http\Controllers\hash_password;
+
+Route::post('/login', [log_in_controller::class, 'logIn'])->name('login');
+
+Route::get('/hash/{user:id}', [hash_password::class, 'hashPassword'])->name('hash');//for hashing for testing
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +20,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login_test');
 });
