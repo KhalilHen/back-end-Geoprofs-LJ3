@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
@@ -20,7 +17,6 @@ return new class extends Migration
             $table->integer('leave_hours')->default(0);
             $table->enum('onLeave', ['present', 'on leave', 'sick', 'irresponsibly absent']);
             $table->double('average_hours');
-            $table->json('working_days');
             $table->date('date_of_birth');
             $table->date('start_working_date');
             $table->date('end_working_date')->nullable();
@@ -28,9 +24,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users');
