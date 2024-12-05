@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="225b99a3-f53f-40f6-b0e4-4759cdcb1e22" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093336_create_departments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093336_create_departments_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093337_create_projects_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093337_create_projects_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093337_create_sections_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-end-geoprofs/database/migrations/2024_10_17_093337_create_sections_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -197,7 +194,8 @@
       <workItem from="1729161188292" duration="2439000" />
       <workItem from="1729168567413" duration="591000" />
       <workItem from="1730203287195" duration="406000" />
-      <workItem from="1733316490808" duration="1764000" />
+      <workItem from="1733316490808" duration="1799000" />
+      <workItem from="1733392494699" duration="156000" />
     </task>
     <servers />
   </component>
