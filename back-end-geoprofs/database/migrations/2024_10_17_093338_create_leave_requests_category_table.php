@@ -11,7 +11,6 @@ class CreateLeaveRequestsCategoryTable extends Migration
         Schema::create('leave_requests_categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
