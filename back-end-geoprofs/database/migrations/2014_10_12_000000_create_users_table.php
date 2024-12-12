@@ -16,9 +16,9 @@ return new class extends Migration
             $table->enum('role', ['employee', 'manager', 'section-Manager', 'CEO']);
             $table->integer('leave_hours')->default(0);
             $table->enum('onLeave', ['present', 'on leave', 'sick', 'irresponsibly absent']);
-            $table->double('average_hours');
-            $table->date('date_of_birth');
-            $table->date('start_working_date');
+            $table->double('average_hours')->default(0);
+            $table->date('date_of_birth')->nullable();
+            $table->date('start_working_date')->nullable();
             $table->date('end_working_date')->nullable();
             $table->timestamps();
         });
