@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\log_in_controller;
 
 Route::post('/login', [log_in_controller::class, 'logIn'])->name('login');
+Route::post('/getUsersFromDepartment', [DepartmentController::class, 'getUsers'])->name('getUsers');
 
 
 /*
