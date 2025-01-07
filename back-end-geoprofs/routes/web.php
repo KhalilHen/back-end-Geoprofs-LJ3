@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\department_controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\log_in_controller;
 
 Route::post('/login', [log_in_controller::class, 'logIn'])->name('login');
-Route::post('/getUsersFromDepartment', [DepartmentController::class, 'getUsers'])->name('getUsers');
 
+Route::get('/getUsersDepartment', [department_controller::class, 'getUsers']);
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +19,6 @@ Route::post('/getUsersFromDepartment', [DepartmentController::class, 'getUsers']
 |
 */
 
-Route::get('/', function () {
+Route::view('/', function () {
     return view('login_test');
 });

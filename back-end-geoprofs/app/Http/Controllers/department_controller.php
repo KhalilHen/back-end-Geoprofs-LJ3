@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class DepartmentController extends Controller
+class department_controller extends Controller
 {
     public function getUsers(Request $request){
         Log::info('getUsers endpoint hit.');
@@ -20,10 +20,10 @@ class DepartmentController extends Controller
             'idDepartment' => 'required|integer'
         ]);
 
-        $user = User::where('id', $request->id)->first();
+        $user = User::where('id', $request->idUser)->first();
 
         return response()->json([
-            'role' => $user->role     
+            'role' => $user->role   
         ]);  
     }
 }
