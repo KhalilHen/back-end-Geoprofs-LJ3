@@ -20,10 +20,14 @@ class department_controller extends Controller
             'idDepartment' => 'required|integer'
         ]);
 
-        $user = User::where('id', $request->idUser)->first();
+        $userToken = Cache::get('user_token:' . $request->idUser . "_" . $request->cacheId);
+
+        if($userToken != $request->userToken){
+            return response()->json(['message' => 'Invalid credentials'], 401);//also stops code from continuing 
+        }
 
         return response()->json([
-            'role' => $user->role   
+            'message' => "succes"
         ]);  
     }
 }
