@@ -80,7 +80,7 @@ class department_controller extends Controller
             return response()->json(['message' => 'You do not have the necessary permissions to access this data.'], 403);
         }
 
-        $department = Department::where('department_id', $request->idDepartment)->first();
+        $department = Department::where('id', $request->idDepartment)->first();
 
         $mangerId = $department->manager_role_id;
 

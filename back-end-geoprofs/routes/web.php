@@ -8,6 +8,8 @@ Route::post('/login', [log_in_controller::class, 'logIn'])->name('login');
 
 Route::get('/getUsersDepartment', [department_controller::class, 'getUsers']);
 
+Route::get('/getMangerDepartment', [department_controller::class, 'getManger']);
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
