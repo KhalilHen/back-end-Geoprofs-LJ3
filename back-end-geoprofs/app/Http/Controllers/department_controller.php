@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\DepartmentEmployee;
@@ -48,6 +49,43 @@ class department_controller extends Controller
 
         return response()->json([
             'user_ids' => $userIds
+        ]);  
+    }
+
+    public function getManger(Request $request){
+        $request->validate([
+            'idUser' => 'required|integer',
+            'userToken' => 'required|string',
+            'cacheId' => 'required|string',
+            'idDepartment' => 'required|integer'
+        ]);
+
+        Log::info('getManger from department controller');
+
+        $userToken = Cache::get('user_token:' . $request->idUser . "_" . $request->cacheId);
+
+        if($userToken != $request->userToken){
+            return response()->json(['message' => 'Invalid credentials'], 401);
+        }
+
+        $user = User::where('id', $request->idUser)->first();
+        $departmentEmployee = DepartmentEmployee::where('user_id', $request->idUser)->first();
+
+        if(!(
+            $user->role == 'CEO' ||
+            $departmentEmployee?->department_id == $request->idDepartment ||
+            ($user->role == 'section-Manager' && $this->sectionMangerCheck($request->idUser , $request->idDepartment))
+        ))
+        {
+            return response()->json(['message' => 'You do not have the necessary permissions to access this data.'], 403);
+        }
+
+        $department = Department::where('department_id', $request->idDepartment)->first();
+
+        $mangerId = $department->manager_role_id;
+
+        return response()->json([
+            'manger_id' => $mangerId
         ]);  
     }
 
