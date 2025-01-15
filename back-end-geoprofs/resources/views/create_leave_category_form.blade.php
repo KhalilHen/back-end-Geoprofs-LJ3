@@ -24,8 +24,8 @@
         </form>
        <form action="/leave-category">
 
-       <button  >  Retrieve Category</button> 
-       </form>  displayLeaveCategory
+       <button  >  Retrieve Category</button>
+       </form>
     </div>
 </body>
 

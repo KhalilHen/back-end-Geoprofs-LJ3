@@ -5,33 +5,54 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LeaveRequestsCategories;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+
 class leave_request_category extends Controller
 {
     //
 
     public function createLeaveCategory(Request $request)
     {
-       //TODO Add here the authentication check
-        // if (auth()->user()->role != 'admin') {
-        //     return response()->json(['message' => 'Not accessible'], 403);
-        // }
 
-        // $request->validate([
-        //     'name' => 'required',
-        // ]);
 
-        // Create a new Leave instance
+
+
+        // Validate the request input
+        $request->validate([
+            'idUser' => 'required|integer',
+            'userToken' => 'required|string',
+            'cacheId' => 'required|string',
+            'title' => 'required|string',
+        ]);
+
+
+
+
+        // Retrieve the cached user token
+        $userToken = Cache::get('user_token:' . $request->idUser . "_" . $request->cacheId);
+dd($userToken);
+        // Check if the token is valid
+        if ($userToken !== $request->userToken) {
+            return response()->json(['message' => 'Invalid credentials'], 401);
+        }
+
+        // Retrieve the user and check their role
+        $user = User::find($request->idUser);
+
+        if (!$user || $user->role !== 'CEO') {
+            return response()->json(['message' => 'You do not have the necessary permissions to perform this action.'], 403);
+        }
+
+        Log::info('leave_request_category hit');
+
+        // Create the new leave request category
         $leaveCategory = new LeaveRequestsCategories();
-
-        // Fill the Leave model with the validated data
         $leaveCategory->title = $request->input('title');
-
-        // Save the Leave to the database
         $leaveCategory->save();
 
-        // Redirect or return a response (e.g., success message)
-        return response()->json(['message' => 'Leave request category submitted successfully!']);
-
+        // Return success response
+        return response()->json(['message' => 'Leave request category created successfully!']);
     }
     public function displayLeaveCategory()
     {

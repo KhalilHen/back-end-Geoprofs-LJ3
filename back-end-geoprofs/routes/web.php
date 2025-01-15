@@ -8,7 +8,7 @@ use App\Http\Controllers\LeaveRequest;
 use App\Http\Controllers\ProjectController;
 use App\Models\LeaveRequestsCategories;
 
-Route::post('/login', [log_in_controller::class, 'logIn'])->name('login');
+Route::post('/login', action: [log_in_controller::class, 'logIn'])->name('login');
 
 
 /*
@@ -27,6 +27,21 @@ Route::get('/', function () {
 });
 
 
+
+
+
+
+
+//View
+Route::get('/leaveRequestForm', function () {
+    $categories = LeaveRequestsCategories::all();
+    return view('create_leave_request', compact('categories'));
+});
+
+
+//Leave request
+//create Leave request
+Route::post('/leave-request', action: [LeaveRequest::class, 'createLeaveRequest']);
 
 
 

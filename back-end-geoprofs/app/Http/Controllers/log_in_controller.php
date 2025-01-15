@@ -52,5 +52,6 @@ class log_in_controller extends Controller
             'expire_date' => $expireDate->toCookieString(),
             'cache_id' => $uniqid,
         ]);
+        
     }
 }
