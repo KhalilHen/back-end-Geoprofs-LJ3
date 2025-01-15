@@ -5,3 +5,4 @@ For realese change 'allowed_origins' in back-end-geoprofs\config\cors.php and ch
 if logging in doesn't work try 
 php artisan config:clear 
 php artisan cache:clear
+php artisan route:clear  

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\department_controller;
+use App\Http\Controllers\user_controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\log_in_controller;
 
@@ -9,6 +10,8 @@ Route::post('/login', [log_in_controller::class, 'logIn'])->name('login');
 Route::get('/getUsersDepartment', [department_controller::class, 'getUsers']);
 
 Route::get('/getMangerDepartment', [department_controller::class, 'getManger']);
+
+Route::get('/getUserData', [user_controller::class, 'getUserData']);
 
 /*
 |--------------------------------------------------------------------------
