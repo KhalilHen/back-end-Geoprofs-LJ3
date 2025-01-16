@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\log_in_controller;
+use App\Http\Controllers\ProjectsController;
 
 Route::post('/login', [log_in_controller::class, 'logIn'])->name('login');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +20,11 @@ Route::post('/login', [log_in_controller::class, 'logIn'])->name('login');
 Route::get('/', function () {
     return view('login_test');
 });
+
+// PROJECTS
+
+Route::get('/project', function () {
+    return view('project');
+});
+
+Route::get('/getProjects', [ProjectsController::class, 'getProjects'])->name('projects');
