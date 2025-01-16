@@ -1,14 +1,9 @@
 <?php
 
-use App\Http\Controllers\leave_request_category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\log_in_controller;
-use App\Http\Controllers\LeaveRequest;
-// use App\Http\Controllers\leave_request_category;
-use App\Http\Controllers\ProjectController;
-use App\Models\LeaveRequestsCategories;
 
-Route::post('/login', action: [log_in_controller::class, 'logIn'])->name('login');
+Route::post('/login', [log_in_controller::class, 'logIn'])->name('login');
 
 
 /*
@@ -25,53 +20,3 @@ Route::post('/login', action: [log_in_controller::class, 'logIn'])->name('login'
 Route::get('/', function () {
     return view('login_test');
 });
-
-
-
-
-
-
-
-//View
-Route::get('/leaveRequestForm', function () {
-    $categories = LeaveRequestsCategories::all();
-    return view('create_leave_request', compact('categories'));
-});
-
-
-//Leave request
-//create Leave request
-Route::post('/leave-request', action: [LeaveRequest::class, 'createLeaveRequest']);
-
-
-
-
-
-
-
-
-
-
-//CATEGORY ROUTES
-
-//View Form
-Route::get('/create_leave_category_form', function () {
-    return view('/create_leave_category_form');
-}); 
-
-//Retrieve  Leave Categories
-Route::get('/leave-category', [leave_request_category::class, 'displayLeaveCategory'])->name('leave-category');
-
-Route::post('/create_leave_category', action: [leave_request_category::class, 'createLeaveCategory']);
-
-
-
-
-
-
-///PROJECT  ROUTES
-
-Route::get('/project', action: function () {
-    return view('project');
-});
-Route::get('/getProjects', action: [ProjectController::class, 'getProjects'])->name('projects');
