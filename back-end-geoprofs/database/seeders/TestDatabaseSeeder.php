@@ -11,6 +11,7 @@ use App\Models\DepartmentEmployee;
 use App\Models\DepartmentSection;
 use App\Models\Project;
 use App\Models\ProjectEmployee;
+use App\Models\MangerSection;
 
 class TestDatabaseSeeder extends Seeder
 {
@@ -45,8 +46,7 @@ class TestDatabaseSeeder extends Seeder
         $departmentMangers = [];
         $departments = [];
         $employees = [];
-        $departmentEmployees = [];
-        $departmentSections = [];
+        $mangerSections = [];
 
         for($i = 1; $i <= sizeof($employeesStructure); $i++) {
             $userId++;
@@ -58,10 +58,14 @@ class TestDatabaseSeeder extends Seeder
                 'role' => 'section-Manager',
             ]);
 
+            array_push($mangerSections, [
+                'manager_role_id_user' => $userId,
+                'section_id' => $i,
+            ]);
+
             array_push($sections, [
                 'id' => $i,
-                'title' => 'TestSection' . $i,
-                'manager_role_id' => $sectionMangers[$i-1]['id'],
+                'title' => 'TestSection' . $i,                
                 'description' => ' this is TestSection' . $i,
             ]);
 
@@ -73,6 +77,7 @@ class TestDatabaseSeeder extends Seeder
                     'id' => $userId,
                     'name' => 'TestDepartmentManger' . $departmentId,
                     'email' => 'GeoprofsDepartmentManger' . $departmentId . '@example.com',
+                    'department_id' => $departmentId,
                     'password' => 'password' . $userId,
                     'role' => 'manager',
                 ]);
@@ -80,17 +85,7 @@ class TestDatabaseSeeder extends Seeder
                 array_push($departments , [
                     'id' => $departmentId,
                     'title' => 'TestDepartment' . $departmentId,
-                    'manager_role_id' => $departmentMangers[$departmentId-1]['id'],
                     'description' => ' this is TestDepartment' . $departmentId,
-                ]);
-
-                array_push($departmentEmployees, [
-                    'department_id' => $departmentId,
-                    'user_id' => $departmentMangers[$departmentId-1]['id'],
-                ]);
-
-                array_push($departmentSections, [
-                    'department_id' => $departmentId,
                     'section_id' => $i,
                 ]);
 
@@ -103,11 +98,7 @@ class TestDatabaseSeeder extends Seeder
                         'email' => 'GeoprofsEmployee' . $employee . '@example.com',
                         'password' => 'password' . $userId,
                         'role' => 'employee',
-                    ]);
-
-                    array_push($departmentEmployees, [
                         'department_id' => $departmentId,
-                        'user_id' => $employees[$employee-1]['id'],
                     ]);
                 }
             }
@@ -157,36 +148,22 @@ class TestDatabaseSeeder extends Seeder
                 ]);
             }
         }
-        
 
         $users = array_merge($employees, $departmentMangers, $sectionMangers , [$ceo]);
-
-        foreach ($users as $user) {
-            User::create($user);
-        }
-
-        foreach ($departments as $department) {
-            Department::create($department);
-        }
-
-        foreach ($departmentEmployees as $employee) {
-            DepartmentEmployee::create($employee);
-        }
 
         foreach($sections as $section) {
             Section::create($section);
         }
 
-        foreach($departmentSections as $departmentSection) {
-            DepartmentSection::create($departmentSection);
+        foreach ($departments as $department) {
+            Department::create($department);
+        }
+        foreach ($users as $user) {
+            User::create($user);
         }
 
-        foreach($projects as $project) {
-            Project::create($project);
-        }
-
-        foreach($projectsEmployees as $projectEmployee) {
-            ProjectEmployee::create($projectEmployee);
+        foreach($mangerSections as $mangerSection) {
+            MangerSection::create($mangerSection);
         }
     }
 }
