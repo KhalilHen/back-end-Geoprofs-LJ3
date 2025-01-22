@@ -14,25 +14,37 @@ class LeaveRequestsController extends Controller
     public function requestLeaveStatus(Request $request, $leaveRequestId)
     {
         // Mock data for leave request leave status
-        $mockLeaveRequests = [
-            ['id' => 1, 'user_id' => 101, 'leave_status' => 'Approved'],
-            ['id' => 2, 'user_id' => 102, 'leave_status' => 'Pending'],
-            ['id' => 3, 'user_id' => 101, 'leave_status' => 'Rejected'],
-        ];
+        //TODO Here auth check
 
-        $mockUser = ['id' => 101, 'name' => 'John Doe']; // Simulating a logged-in user
 
-        $leaveRequest = collect($mockLeaveRequests)->first(function ($request) use ($leaveRequestId, $mockUser) {
-            return $request['id'] === (int) $leaveRequestId && $request['user_id'] === $mockUser['id'];
-        });
+        //Here a check whether the user is logged in or not
+        //    if(!$user ) {
 
+        //     return response()->json(['error' => 'Unauthorized'], 401);
+        //    }
+
+
+
+        $leaveRequest = LeaveRequests::where('id', $leaveRequestId)
+            ->where('user_id', $user->id) //Add here the user value
+            ->first(['id', 'leave_status']);
+
+        //Check whether the leave request is found or not
         if (!$leaveRequest) {
             return response()->json(['error' => 'Leave request not found or not accessible'], 404);
         }
 
+
+        //Too make the output more readable
+        $statusMapping = [
+            0 => 'Pending',
+            1 => 'Approved',
+            2 => 'Rejected',
+        ];
+
         return response()->json([
-            'leave_request_id' => $leaveRequest['id'],
-            'leave_status' => $leaveRequest['leave_status'],
+            'leave_request_id' => $leaveRequest->id,
+            'leave_status' => $statusMapping,
         ]);
     }
 
