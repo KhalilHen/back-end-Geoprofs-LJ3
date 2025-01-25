@@ -56,6 +56,7 @@ class TestDatabaseSeeder extends Seeder
                 'email' => 'GeoprofsSectionManger' . $i . '@example.com',
                 'password' => 'password' . $userId,
                 'role' => 'section-Manager',
+                'leave_days' => 30,
             ]);
 
             array_push($mangerSections, [
@@ -80,6 +81,7 @@ class TestDatabaseSeeder extends Seeder
                     'department_id' => $departmentId,
                     'password' => 'password' . $userId,
                     'role' => 'manager',
+                    'leave_days' => 30,
                 ]);
 
                 array_push($departments , [
@@ -99,6 +101,7 @@ class TestDatabaseSeeder extends Seeder
                         'password' => 'password' . $userId,
                         'role' => 'employee',
                         'department_id' => $departmentId,
+                        'leave_days' => 30,
                     ]);
                 }
             }

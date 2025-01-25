@@ -4,43 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\LeaveRequests;
+use App\Models\User;//depends on model
+use Illuminate\Support\Facades\Cache;
 
 class LeaveRequestsController extends Controller
 {
-    //
-
-
-
-
-
-
-
-
-
-
-
-
-    public function seeCurrentLeaveSaldo()
+    public function seeCurrentLeaveSaldo(Request $request)
     {
-        // Simulate the authenticated user
-        // $mockUser = [
-        //     'id' => 1,
-        //     'name' => 'John Doe',
-        //     'leave_days' => 1,
-        // ];
-        //TODO add here the auth 
+        $request->validate([
+            'user_id' => 'required|integer',
+            'access_token' => 'required|string',
+            'cache_id' => 'required|string',
+            'target_user_id' => 'required|integer'
+        ]);
 
-        //* Check here  if the user is authenticated
-        // if (!$user) {
-        //     return response()->json(['error' => 'Unauthorized'], 401);
-        // }
+        $accessToken = Cache::get('user_token:' . $request->user_id . "_" . $request->cache_id);
 
-        //* Here retrieve the value of the leave days column based on the connected user
+        if($accessToken != $request->access_token){
+            return response()->json(['message' => 'Invalid credentials'], 401);
+        }
+
+        $targetUser = User::where('id', $request->target_user_id)->first();
+ 
+        //TODO add check if data may be accessed by user
+
         return response()->json([
-            'user_id' => $userId['id'], //use the auth value here
-            'name' => $mockUser['name'],
-            'leave_days' => $mockUser['leave_days'],
+            'leave_days' => $targetUser ->leave_days,
         ]);
     }
-
 }
