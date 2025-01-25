@@ -16,3 +16,15 @@ Route::get('/getUserLeaveSaldo', [LeaveRequestsController::class, 'seeCurrentLea
 Route::view('/', function () {
     return view('login_test');
 });
+
+//**  LEAVE REQUEST ROUTES  **//
+
+//View
+//TODO Change this into the front-end view
+Route::get('/leaveRequestForm', [LeaveRequestsCategoriesController::class, 'displayLeaveCategory']);
+
+
+//Leave request
+//create Leave request
+Route::post(uri: '/leave-request', action: [LeaveRequestsController::class, 'createLeaveRequest']);
+
