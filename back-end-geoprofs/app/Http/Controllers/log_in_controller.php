@@ -42,7 +42,7 @@ class log_in_controller extends Controller
             $uniqid = Str::random(16);
         }
         
-        Log::info($user->id . "_" . $uniqid);
+        // Log::info($user->id . "_" . $uniqid);
         $expireDate = now()->addMinutes($validTokenTime);
         Cache::put('user_token:' . $user->id . "_" . $uniqid, $token, $expireDate);      
 
