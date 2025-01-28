@@ -12,6 +12,7 @@ use App\Models\DepartmentSection;
 use App\Models\Project;
 use App\Models\ProjectEmployee;
 use App\Models\MangerSection;
+use App\Models\LeaveRequestsCategories;
 
 class TestDatabaseSeeder extends Seeder
 {
@@ -154,6 +155,13 @@ class TestDatabaseSeeder extends Seeder
 
         $users = array_merge($employees, $departmentMangers, $sectionMangers , [$ceo]);
 
+        $leave_requests_categories = [
+            [
+                'title' => 'free day',
+                'id' =>1,
+            ]
+        ];
+
         foreach($sections as $section) {
             Section::create($section);
         }
@@ -167,6 +175,10 @@ class TestDatabaseSeeder extends Seeder
 
         foreach($mangerSections as $mangerSection) {
             MangerSection::create($mangerSection);
+        }
+
+        foreach($leave_requests_categories as $leave_requests_categorie) {
+            LeaveRequestsCategories::create($leave_requests_categorie);
         }
     }
 }

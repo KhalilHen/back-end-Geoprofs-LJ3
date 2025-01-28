@@ -13,6 +13,8 @@ Route::get('/getMangerDepartment', [department_controller::class, 'getManger']);
 
 Route::get('/getUserLeaveSaldo', [LeaveRequestsController::class, 'seeCurrentLeaveSaldo']);
 
+Route::post('/createLeaveRequest', [LeaveRequestsController::class, 'createLeaveRequest']);
+
 Route::view('/', function () {
     return view('login_test');
 });
@@ -21,5 +23,6 @@ Route::view('/', function () {
 
 //Leave request
 //create Leave request
-Route::post(uri: '/leave-request', action: [LeaveRequestsController::class, 'createLeaveRequest']);
+
+
 

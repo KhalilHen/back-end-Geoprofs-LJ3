@@ -15,7 +15,7 @@ class CreateLeaveRequestsTable extends Migration
             $table->foreignId('employee_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('leave_requests_category_id')->constrained('leave_requests_categories')->onDelete('cascade');
             $table->boolean('leave_status');
-            $table->integer('leave_hours');
+            $table->integer('leave_days');
             $table->string('start_date');
             $table->string('end_date');
             $table->boolean('is_paid');
