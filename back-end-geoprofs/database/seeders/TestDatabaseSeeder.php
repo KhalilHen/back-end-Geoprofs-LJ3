@@ -13,6 +13,7 @@ use App\Models\Project;
 use App\Models\ProjectEmployee;
 use App\Models\MangerSection;
 use App\Models\LeaveRequestsCategories;
+use App\Models\LeaveRequests;
 
 class TestDatabaseSeeder extends Seeder
 {
@@ -162,6 +163,30 @@ class TestDatabaseSeeder extends Seeder
             ]
         ];
 
+        $leave_request_users = [
+            3,
+            4,
+            5,
+            8,
+            9,
+        ];
+
+        $leave_requests = [];
+
+        for($i = 1; $i <= sizeof($leave_request_users); $i++){
+            array_push($leave_requests , [
+                'id' => $i,
+                'description' => 'Leave request from ' . $leave_request_users[$i-1],
+                'employee_id' => $leave_request_users[$i-1],
+                'leave_requests_category_id' => 1,
+                'leave_status' => 0,
+                'start_date' => '2025-02-01',
+                'end_date' => '2025-02-02',
+                'leave_days' => 2,
+                'is_paid' => 1,
+            ]);
+        }
+
         foreach($sections as $section) {
             Section::create($section);
         }
@@ -179,6 +204,10 @@ class TestDatabaseSeeder extends Seeder
 
         foreach($leave_requests_categories as $leave_requests_categorie) {
             LeaveRequestsCategories::create($leave_requests_categorie);
+        }
+
+        foreach($leave_requests as $leave_request) {
+            LeaveRequests::create($leave_request);
         }
     }
 }

@@ -85,6 +85,8 @@ class LeaveRequestsController extends Controller
 
     public function approveOrDeclineLeaveRequest(Request $request)
     {
+        Log::info('hit approveOrDeclineLeaveRequest');
+
         $request->validate([
             'user_id' => 'required|integer',
             'access_token' => 'required|string',
@@ -94,13 +96,19 @@ class LeaveRequestsController extends Controller
             'value' => 'required|integer|in:1,2',//1 decline 2 approve
         ]);
 
+        Log::info('hit approveOrDeclineLeaveRequest past validation');
+
         $accessToken = Cache::get('user_token:' . $request->user_id . "_" . $request->cache_id);
 
         if($accessToken != $request->access_token){
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $leaveRequest = LeaveRequests::where('id', $request->leave_request_id);
+        Log::info('hit approveOrDeclineLeaveRequest past login check');
+
+        $leaveRequest = LeaveRequests::where('id', $request->leave_request_id)->first();
+
+        Log::info('hit approveOrDeclineLeaveRequest past leave request query');
 
         //TODO add check if data may be declined by user
 
@@ -108,7 +116,7 @@ class LeaveRequestsController extends Controller
             return response()->json(['error' => 'Leave request not found'], 404);
         }
 
-        if($leaveRequest->leave_status == 0){
+        if($leaveRequest->leave_status != 0){
             return response()->json([
                 'error' => 'This request can no longer be approved or declined as it is no longer pending.'
             ], 422);
@@ -117,7 +125,7 @@ class LeaveRequestsController extends Controller
         $leaveRequest->update(['leave_status' => $request->value]);
 
         return response()->json([
-            'message' => 'Leave request succesfully approve or decline'
+            'message' => 'Leave request successfully approved or declined'
         ]);
     }
 }

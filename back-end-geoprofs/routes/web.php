@@ -17,6 +17,8 @@ Route::post('/createLeaveRequest', [LeaveRequestsController::class, 'createLeave
 
 Route::post('/leave-requests/decline/{id}', [LeaveRequestsController::class, 'declineLeaveRequest']);
 
+Route::post('/approveOrDeclineLeaveRequest', [LeaveRequestsController::class, 'approveOrDeclineLeaveRequest']);
+
 Route::view('/', function () {
     return view('login_test');
 });
