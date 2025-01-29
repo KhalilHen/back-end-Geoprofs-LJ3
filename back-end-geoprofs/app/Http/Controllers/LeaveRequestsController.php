@@ -46,7 +46,6 @@ class LeaveRequestsController extends Controller
             'access_token' => 'required|string',
             'cache_id' => 'required|string',
 
-            'title' => 'required|string|max:255',
             'description' => 'required|string',
             'category' => 'required|integer',
             'start_date' => 'required|date',
@@ -65,7 +64,6 @@ class LeaveRequestsController extends Controller
         Log::info('got past login check');
 
         $leaveRequest = new LeaveRequests();
-        $leaveRequest->title = $request->input('title');
         $leaveRequest->description = $request->input('description');
         $leaveRequest->leave_requests_category_id = $request->input('category');
 
