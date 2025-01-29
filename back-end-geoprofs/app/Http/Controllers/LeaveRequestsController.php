@@ -39,8 +39,6 @@ class LeaveRequestsController extends Controller
 
     public function createLeaveRequest(Request $request)
     {
-        Log::info('hit createLeaveRequest');
-
         $request->validate([
             'user_id' => 'required|integer',
             'access_token' => 'required|string',
@@ -53,15 +51,11 @@ class LeaveRequestsController extends Controller
             'is_paid' => 'required|boolean',
         ]);
 
-        Log::info('got past validation');
-
         $accessToken = Cache::get('user_token:' . $request->user_id . "_" . $request->cache_id);
 
         if($accessToken != $request->access_token){
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
-        
-        Log::info('got past login check');
 
         $leaveRequest = new LeaveRequests();
         $leaveRequest->description = $request->input('description');
@@ -85,8 +79,6 @@ class LeaveRequestsController extends Controller
 
     public function approveOrDeclineLeaveRequest(Request $request)
     {
-        Log::info('hit approveOrDeclineLeaveRequest');
-
         $request->validate([
             'user_id' => 'required|integer',
             'access_token' => 'required|string',
@@ -96,19 +88,13 @@ class LeaveRequestsController extends Controller
             'value' => 'required|integer|in:1,2',//1 decline 2 approve
         ]);
 
-        Log::info('hit approveOrDeclineLeaveRequest past validation');
-
         $accessToken = Cache::get('user_token:' . $request->user_id . "_" . $request->cache_id);
 
         if($accessToken != $request->access_token){
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        Log::info('hit approveOrDeclineLeaveRequest past login check');
-
         $leaveRequest = LeaveRequests::where('id', $request->leave_request_id)->first();
-
-        Log::info('hit approveOrDeclineLeaveRequest past leave request query');
 
         //TODO add check if data may be declined by user
 
@@ -142,12 +128,39 @@ class LeaveRequestsController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $leaveRequests = LeaveRequests::all()->pluck('id');//TODO make it get all user is permitted to see
-        
-        Log::info($leaveRequests);
+        $leaveRequests = LeaveRequests::all()->pluck('id');//TODO make it get all leave requests is permitted to see and if even allowed to see one
 
         return response()->json([
             'leave_request_id' => $leaveRequests,
         ]);
     }
+
+    public function getLeaveRequestData(Request $request){
+
+        Log::info('hit getLeaveRequestData');
+        Log::info($request);
+
+        $request->validate([
+            'user_id' => 'required|integer',
+            'access_token' => 'required|string',
+            'cache_id' => 'required|string',
+
+            'leave_request_id' => 'required|integer',
+        ]);
+
+        $accessToken = Cache::get('user_token:' . $request->user_id . "_" . $request->cache_id);
+
+        if($accessToken != $request->access_token){
+            return response()->json(['message' => 'Invalid credentials'], 401);
+        }
+
+        //TODO check if user is allowed to see data
+        
+        $leaveRequest = LeaveRequests::where('id', $request->leave_request_id)->first();
+
+        return response()->json([
+            'leave_request' => $leaveRequest,
+        ]);
+    }
+
 }

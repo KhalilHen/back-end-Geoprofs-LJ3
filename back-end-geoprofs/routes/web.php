@@ -21,6 +21,8 @@ Route::post('/approveOrDeclineLeaveRequest', [LeaveRequestsController::class, 'a
 
 Route::get('/getLeaveRequests', [LeaveRequestsController::class, 'getLeaveRequests']);
 
+Route::get('/getLeaveRequestData', [LeaveRequestsController::class, 'getLeaveRequestData']);
+
 Route::view('/', function () {
     return view('login_test');
 });

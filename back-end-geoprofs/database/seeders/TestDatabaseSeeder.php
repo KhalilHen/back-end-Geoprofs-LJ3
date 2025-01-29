@@ -176,7 +176,7 @@ class TestDatabaseSeeder extends Seeder
         for($i = 1; $i <= sizeof($leave_request_users); $i++){
             array_push($leave_requests , [
                 'id' => $i,
-                'description' => 'Leave request from ' . $leave_request_users[$i-1],
+                'description' => 'Leave request from user ' . $leave_request_users[$i-1],
                 'employee_id' => $leave_request_users[$i-1],
                 'leave_requests_category_id' => 1,
                 'leave_status' => 0,
