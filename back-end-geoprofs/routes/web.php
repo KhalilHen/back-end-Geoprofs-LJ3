@@ -15,9 +15,8 @@ Route::get('/getUserLeaveSaldo', [LeaveRequestsController::class, 'seeCurrentLea
 
 Route::post('/createLeaveRequest', [LeaveRequestsController::class, 'createLeaveRequest']);
 
+Route::post('/leave-requests/decline/{id}', [LeaveRequestsController::class, 'declineLeaveRequest']);
+
 Route::view('/', function () {
     return view('login_test');
 });
-
-Route::get('/leave-requests', [LeaveRequestsController::class, 'index'])->name('leave.requests');
-Route::post('/leave-requests/decline/{id}', [LeaveRequestsController::class, 'declineLeaveRequest'])->name('leave.requests.decline');

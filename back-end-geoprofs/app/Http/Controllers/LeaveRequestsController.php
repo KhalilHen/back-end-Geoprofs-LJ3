@@ -15,7 +15,6 @@ class LeaveRequestsController extends Controller
 {
     public function seeCurrentLeaveSaldo(Request $request)
     {
-
         $request->validate([
             'user_id' => 'required|integer',
             'access_token' => 'required|string',
@@ -50,7 +49,6 @@ class LeaveRequestsController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'category' => 'required|integer',
-            // 'category' => 'required|exists:leave_requests_categories,id', // Ensure the category exists
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'is_paid' => 'required|boolean',
@@ -87,40 +85,41 @@ class LeaveRequestsController extends Controller
         return response()->json(['message' => 'Leave request submitted successfully!']);
     }
 
-    public function declineSectionManagerLeaveRequest($id)
+    public function approveOrDeclineLeaveRequest(Request $request)
     {
+        $request->validate([
+            'user_id' => 'required|integer',
+            'access_token' => 'required|string',
+            'cache_id' => 'required|string',
 
-        //TODO Retrieve  the user  
+            'leave_request_id' => 'required|integer',
+            'value' => 'required|integer|in:1,2',//1 decline 2 approve
+        ]);
 
-        // if ($user != "ceo") {
+        $accessToken = Cache::get('user_token:' . $request->user_id . "_" . $request->cache_id);
 
-        //     return response()->json(['error' => 'You are not authorized to decline this leave request'], 403);
-        // }
+        if($accessToken != $request->access_token){
+            return response()->json(['message' => 'Invalid credentials'], 401);
+        }
 
-        // Find the specific leave request
-        $leaveRequest = LeaveRequests::findOrFail($id);
+        $leaveRequest = LeaveRequests::where('id', $request->leave_request_id);
+
+        //TODO add check if data may be declined by user
 
         if (!$leaveRequest) {
             return response()->json(['error' => 'Leave request not found'], 404);
         }
 
-        //get the employee associated with the leave request
-        $employee = $leaveRequest->employee;
+        if($leaveRequest->leave_status == 0){
+            return response()->json([
+                'error' => 'This request can no longer be approved or declined as it is no longer pending.'
+            ], 422);
+        }
 
-        // TODO Add here the logic to check if the user is has role CEO, and the  employee section manager
-        // if (!$currentUser->isCEO() || $employee->role !== 'section_manager') {
-        //     return response()->json([
-        //         'error' => 'You are not authorized to decline this leave request'
-        //     ], 403);     
-        // }
-
-        //Update the leave request status
-        $leaveRequest->update(['leave_status' => 2]);
-
+        $leaveRequest->update(['leave_status' => $request->value]);
 
         return response()->json([
-            'message' => 'Leave request succesfully declined'
-        ], 403);
-
+            'message' => 'Leave request succesfully approve or decline'
+        ]);
     }
 }
