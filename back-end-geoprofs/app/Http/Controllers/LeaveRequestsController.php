@@ -128,4 +128,26 @@ class LeaveRequestsController extends Controller
             'message' => 'Leave request successfully approved or declined'
         ]);
     }
+
+    public function getLeaveRequests(Request $request){
+        $request->validate([
+            'user_id' => 'required|integer',
+            'access_token' => 'required|string',
+            'cache_id' => 'required|string',
+        ]);
+
+        $accessToken = Cache::get('user_token:' . $request->user_id . "_" . $request->cache_id);
+
+        if($accessToken != $request->access_token){
+            return response()->json(['message' => 'Invalid credentials'], 401);
+        }
+
+        $leaveRequests = LeaveRequests::all()->pluck('id');//TODO make it get all user is permitted to see
+        
+        Log::info($leaveRequests);
+
+        return response()->json([
+            'leave_request_id' => $leaveRequests,
+        ]);
+    }
 }
