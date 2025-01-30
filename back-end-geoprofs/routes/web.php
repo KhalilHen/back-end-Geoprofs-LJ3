@@ -4,6 +4,7 @@ use App\Http\Controllers\department_controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\log_in_controller;
 use App\Http\Controllers\LeaveRequestsController;
+use App\Http\Controllers\user_controller;
 
 Route::post('/login', [log_in_controller::class, 'logIn'])->name('login');
 
@@ -22,6 +23,8 @@ Route::post('/approveOrDeclineLeaveRequest', [LeaveRequestsController::class, 'a
 Route::get('/getLeaveRequests', [LeaveRequestsController::class, 'getLeaveRequests']);
 
 Route::get('/getLeaveRequestData', [LeaveRequestsController::class, 'getLeaveRequestData']);
+
+Route::get('/getUserData', [user_controller::class, 'getUserData']);
 
 Route::view('/', function () {
     return view('login_test');
