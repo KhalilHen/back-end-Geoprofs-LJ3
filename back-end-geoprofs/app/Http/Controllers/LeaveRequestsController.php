@@ -128,7 +128,7 @@ class LeaveRequestsController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $leaveRequests = LeaveRequests::all()->pluck('id');//TODO make it get all leave requests is permitted to see and if even allowed to see one
+        $leaveRequests = LeaveRequests::all();//TODO make it get all leave requests is permitted to see and if even allowed to see one
 
         return response()->json([
             'leave_request_id' => $leaveRequests,
