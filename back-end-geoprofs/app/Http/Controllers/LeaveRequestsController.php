@@ -131,7 +131,7 @@ class LeaveRequestsController extends Controller
         $leaveRequests = LeaveRequests::all();//TODO make it get all leave requests is permitted to see and if even allowed to see one
 
         return response()->json([
-            'leave_request_id' => $leaveRequests,
+            'leave_requests' => $leaveRequests,
         ]);
     }
 
