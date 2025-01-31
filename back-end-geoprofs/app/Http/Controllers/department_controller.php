@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Functions\Functions;
+
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -15,6 +17,13 @@ use Illuminate\Support\Facades\Log;
 
 class department_controller extends Controller
 {
+    protected $functions;
+
+    public function __construct()
+    {
+        $this->functions = new Functions();  // Instantiate the Functions class
+    }
+
     public function getUsers(Request $request){
         $request->validate([
             'user_id' => 'required|integer',
@@ -34,7 +43,7 @@ class department_controller extends Controller
         if(!(
             $user->role == 'CEO' ||
             $user?->department_id == $request->id_department ||
-            ($user->role == 'section-Manager' && $this->sectionMangerCheck($request->user_id , $request->id_department))
+            ($user->role == 'section-Manager' && $this->functions->sectionMangerCheck($request->user_id , $request->id_department))
         ))
         {
             return response()->json(['message' => 'You do not have the necessary permissions to access this data.'], 403);
@@ -66,7 +75,7 @@ class department_controller extends Controller
         if(!(
             $user->role == 'CEO' ||
             $user?->department_id == $request->id_department ||
-            ($user->role == 'section-Manager' && $this->sectionMangerCheck($request->user_id , $request->id_department))
+            ($user->role == 'section-Manager' && $this->functions->sectionMangerCheck($request->user_id , $request->id_department))
         ))
         {
             return response()->json(['message' => 'You do not have the necessary permissions to access this data.'], 403);
@@ -77,15 +86,5 @@ class department_controller extends Controller
         return response()->json([
             'user_ids' => $userIds
         ]); 
-    }
-
-    private function sectionMangerCheck($userId , $departmentId)
-    {
-        $mangerSection = MangerSection::where('manager_role_id_user' , $userId)->first();
-        $department = Department::where('id' , $departmentId)->first();
-        if($mangerSection?->section_id == $department?->section_id){
-            return true;
-        }
-        return false;
     }
 }

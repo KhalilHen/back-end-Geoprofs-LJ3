@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Functions;
+
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Log;
 class Functions {
     public function sectionMangerCheck($userId , $departmentId)
     {
+        Log::info("sectionMangerCheck hit");
+
         $mangerSection = MangerSection::where('manager_role_id_user' , $userId)->first();
         $department = Department::where('id' , $departmentId)->first();
         if($mangerSection?->section_id == $department?->section_id){
