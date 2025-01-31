@@ -10,11 +10,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('department_id')->nullable()->default(null)->constrained('departments')->onDelete('cascade');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('role', ['employee', 'manager', 'section-Manager', 'CEO']);
-            $table->integer('leave_hours')->default(0);
+            $table->enum('role', ['employee', /*this is department manger*/ 'manager', 'section-Manager', 'CEO']);
+            $table->integer('leave_days')->default(0);
             $table->enum('onLeave', ['present', 'on leave', 'sick', 'irresponsibly absent']);
             $table->double('average_hours')->default(0);
             $table->date('date_of_birth')->nullable();

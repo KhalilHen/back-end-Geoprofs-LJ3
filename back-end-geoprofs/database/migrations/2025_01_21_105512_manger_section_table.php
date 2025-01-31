@@ -8,17 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('manger_section', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description')->nullable();
-            $table->foreignId('manager_role_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('manager_role_id_user')->unique()->constrained('users')->onDelete('cascade');
+            $table->foreignId('section_id')->constrained('sections')->onDelete('cascade');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('mager_section');
     }
-    };
+};
