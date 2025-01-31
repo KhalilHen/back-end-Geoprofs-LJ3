@@ -108,6 +108,11 @@ class LeaveRequestsController extends Controller
             ], 422);
         }
 
+        if($request->value == 2){
+            $targetUser = User::where('id', $leaveRequest->employee_id)->first();
+            $targetUser->update(['leave_days' => ($targetUser->leave_days - $leaveRequest->leave_days)]);
+        }
+
         $leaveRequest->update(['leave_status' => $request->value]);
 
         return response()->json([
