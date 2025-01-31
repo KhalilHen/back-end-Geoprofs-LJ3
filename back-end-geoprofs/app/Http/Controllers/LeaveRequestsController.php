@@ -137,6 +137,10 @@ class LeaveRequestsController extends Controller
 
         $leaveRequests = LeaveRequests::all();//TODO make it get all leave requests is permitted to see and if even allowed to see one
 
+        foreach ($leaveRequests as $leaveRequest) {
+            $leaveRequest->user_name = User::where('id', $leaveRequest->employee_id)->first()->name;
+        }
+
         return response()->json([
             'leave_requests' => $leaveRequests,
         ]);
@@ -165,6 +169,8 @@ class LeaveRequestsController extends Controller
         
         $leaveRequest = LeaveRequests::where('id', $request->leave_request_id)->first();
 
+        $leaveRequest->user_name = User::where('id', $leaveRequest->employee_id)->first()->name;
+        
         return response()->json([
             'leave_request' => $leaveRequest,
         ]);

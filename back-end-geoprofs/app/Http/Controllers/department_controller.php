@@ -40,7 +40,7 @@ class department_controller extends Controller
             return response()->json(['message' => 'You do not have the necessary permissions to access this data.'], 403);
         }
 
-        $userIds = User::where('department_id', $request->id_department)->get()->pluck('id');;
+        $userIds = User::where('department_id', $request->id_department)->get()->pluck('id');
 
         return response()->json([
             'user_ids' => $userIds
