@@ -169,6 +169,8 @@ class TestDatabaseSeeder extends Seeder
             5,
             8,
             9,
+            1,
+            2,
         ];
 
         $leave_requests = [];

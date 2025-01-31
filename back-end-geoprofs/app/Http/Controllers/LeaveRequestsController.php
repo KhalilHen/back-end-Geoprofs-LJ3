@@ -108,12 +108,10 @@ class LeaveRequestsController extends Controller
         $user = User::where('id', $request->user_id)->first();
         $targetUser = User::where('id', $leaveRequest->employee_id)->first();
 
-        Log::info('user department: ' . $user?->department_id . ' target user department: ' . $targetUser?->department_id . 'user role ' . $user->role . ' target user role ' . $targetUser->role);
-
         if(!(
             $user->role == 'CEO' && $targetUser ->role == 'section-Manager' ||
             ($user?->department_id == $targetUser?->department_id  && $user->role == 'manager' && $targetUser->role == 'employee') ||
-            ($user->role == 'section-Manager' && $this->functions->sectionMangerCheck($request->user_id , $request->id_department) && $targetUser->role == 'manager')
+            ($user->role == 'section-Manager' && $this->functions->sectionMangerCheck($request->user_id , $targetUser->department_id) && $targetUser->role == 'manager')
         ))
         {
             return response()->json(['message' => 'You do not have permission to approve or decline this leave request'], 403);
