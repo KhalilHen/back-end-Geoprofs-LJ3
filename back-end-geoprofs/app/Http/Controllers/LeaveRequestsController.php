@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Functions\Functions;
+
 use Illuminate\Http\Request;
 use App\Models\LeaveRequests;
 use App\Models\User;//depends on model
@@ -13,6 +15,13 @@ use \DateTime;
 
 class LeaveRequestsController extends Controller
 {
+    protected $functions;
+
+    public function __construct()
+    {
+        $this->functions = new Functions();  // Instantiate the Functions class
+    }
+
     public function seeCurrentLeaveSaldo(Request $request)
     {
         $request->validate([
@@ -96,7 +105,19 @@ class LeaveRequestsController extends Controller
 
         $leaveRequest = LeaveRequests::where('id', $request->leave_request_id)->first();
 
-        //TODO add check if data may be declined by user
+        $user = User::where('id', $request->user_id)->first();
+        $targetUser = User::where('id', $leaveRequest->employee_id)->first();
+
+        Log::info('user department: ' . $user?->department_id . ' target user department: ' . $targetUser?->department_id . 'user role ' . $user->role . ' target user role ' . $targetUser->role);
+
+        if(!(
+            $user->role == 'CEO' && $targetUser ->role == 'section-Manager' ||
+            ($user?->department_id == $targetUser?->department_id  && $user->role == 'manager' && $targetUser->role == 'employee') ||
+            ($user->role == 'section-Manager' && $this->functions->sectionMangerCheck($request->user_id , $request->id_department) && $targetUser->role == 'manager')
+        ))
+        {
+            return response()->json(['message' => 'You do not have permission to approve or decline this leave request'], 403);
+        }
 
         if (!$leaveRequest) {
             return response()->json(['error' => 'Leave request not found'], 404);
