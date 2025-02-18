@@ -15,12 +15,19 @@ class Cors
      */
     public function handle(Request $request, Closure $next)
     {
-        $response = $next($request);
+        if ($request->isMethod('OPTIONS'))
+        {
+            $response = new Response();
+        }
+        else 
+        {
+            $response = $next($request);
+        }
 
-        $response->headers->set('Access-Control-Allow-Origin', 'http://localhost:5173'); //put here url front-end
+        $response->headers->set('Access-Control-Allow-Origin', '*'); //front end url should replace *
         $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-        $response->headers->set('Access-Control-Allow-Credentials', 'true');
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+        // $response->headers->set('Access-Control-Allow-Credentials', 'true');
 
         return $response;
     }
